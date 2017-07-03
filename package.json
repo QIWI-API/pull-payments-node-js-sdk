@@ -1,0 +1,15 @@
+{
+  "name": "pull-rest-api-node-js-sdk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/QiwiPullAPI.js",
+  "scripts": {
+    "test": "mocha --harmony test/QiwiPullAPI.spec.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2"
+  }
+}
