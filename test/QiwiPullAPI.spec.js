@@ -58,7 +58,7 @@ describe('qiwi api v2', function() {
             pay_source: 'mobile'
         };
 
-        result = qiwiRestApi.redirectUrlBuilder(options);
+        result = qiwiRestApi.paymentForm(options);
 
         assert.equal('https://bill.qiwi.com/order/external/main.action?shop=481466&transaction=testBillplatieAga&iframe=true&successUrl=https%3A%2F%2Fexample.com%2FsuccessUrl&failUrl=https%3A%2F%2Fexample.com%2FfailUrl&target=&pay_source=mobile', result);
 
