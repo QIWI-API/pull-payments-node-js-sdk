@@ -1,11 +1,13 @@
+const crypto = require('crypto');
 const QiwiPullAPI = require('../lib/QiwiPullAPI');
 const chai = require('chai');
+const { URLSearchParams } = require('url');
 
 const assert = chai.assert;
 
-const prv_id = 481466;
-const api_id = '59058292';
-const api_password = 'MzAci8yl2NZgmoZDMZRD';
+const prv_id = 264131;
+const api_id = 74556135;
+const api_password = 'KCVn0OGNdepwbrruSzvE';
 
 const qiwiRestApi = new QiwiPullAPI(prv_id, api_id, api_password);
 
@@ -13,66 +15,87 @@ qiwiRestApi.prvId = prv_id;
 qiwiRestApi.apiPassword = api_password;
 qiwiRestApi.apiId = api_id;
 
-const billId = 'testBillplatieAga';
-const refundId = '';
-const amount = '';
+const bill_id = qiwiRestApi.generateId();
+
+/* const bill_id = crypto.randomBytes(5).toString('hex'); */
+
+
 
 const fields = {
-    amount: 1,
+    amount: 1.00,
     ccy: 'RUB',
     comment: 'test',
-    lifetime: '2017-07-25T09:00:00',
-    user: 'tel:+79995611695'
+    lifetime: '2018-07-25T09:00:00',
+    user: 'tel:+79086666695'
 };
 
-describe('qiwi api v2', function() {
-    it('creates payment form', function(done) {
-        qiwiRestApi.createBill(billId, fields).then(data => {
+describe('qiwi api v2', function () {
 
-            assert.equal(data.response.result_code, '215');
-            done();
+    this.timeout(6000);
+
+    try {
+        it('create bill', async () => {
+            try {
+                const data = await qiwiRestApi.createBill(bill_id, fields);
+
+                assert.equal('0', data.response.result_code);
+                
+            } catch (e) {
+                throw e;
+            }
         });
-    });
 
-    it('returns valid bill status', function(done) {
-        qiwiRestApi.getStatus(billId).then(data => {
-            assert.equal(data.response.result_code, '0');
-            done();
+        it('get redirect url', () => {
+
+            let options = {
+                transaction: bill_id,
+                iframe: true,
+                successUrl: 'https://example.com/successUrl',
+                failUrl: 'https://example.com/failUrl',
+                pay_source: 'qw'
+            };
+
+            const link = qiwiRestApi.createPaymentForm(options);
+
+            options = {
+                shop: prv_id,
+                ...options
+            };
+            
+            const query = new URLSearchParams(options);
+
+            const testLink = `https://bill.qiwi.com/order/external/main.action?${query.toString()}`;
+
+            
+            
+            assert.equal(testLink, link);
         });
-    });
 
-    it('cancels bill', function(done) {
-        qiwiRestApi.cancel(billId).then(data => {
-            assert.equal(data.response.result_code, '78');
-            done();
+        it('returns valid bill status', async () => {
+            try {
+                const data = await qiwiRestApi.getStatus(bill_id);
+
+                assert.equal('0', data.response.result_code);
+
+            } catch (e) {
+                throw e;
+            }
+
         });
-    });
 
-    it('get redirect url', function(done) {
+        /* it('cancels bill', async () => {
+            try {
+                const data = await qiwiRestApi.cancel(bill_id);
 
-        options = {
-            transaction: billId,
-            iframe: true,
-            successUrl:'https://example.com/successUrl',
-            failUrl: 'https://example.com/failUrl',
-            pay_source: 'mobile'
-        };
+                assert.equal('0', data.response.result_code);
 
-        result = qiwiRestApi.paymentForm(options);
+            } catch (e) {
+                throw e;
+            }
 
-        assert.equal('https://bill.qiwi.com/order/external/main.action?shop=481466&transaction=testBillplatieAga&iframe=true&successUrl=https%3A%2F%2Fexample.com%2FsuccessUrl&failUrl=https%3A%2F%2Fexample.com%2FfailUrl&target=&pay_source=mobile', result);
-
-        done();
-
-    });
+        });
+         */
+    } catch (e) {
+        console.error(e);
+    }
 });
-
-/*qiwiRestApi.refund(billId, refundId, amount).then(data => {
-    console.log(data);
-});
-
-
-
-qiwiRestApi.getRefundStatus(billId, refundId).then(data => {
-    console.log(data);
-});*/
