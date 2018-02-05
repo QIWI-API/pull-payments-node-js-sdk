@@ -1,4 +1,3 @@
-const crypto = require('crypto');
 const QiwiPullAPI = require('../lib/QiwiPullAPI');
 const chai = require('chai');
 const { URLSearchParams } = require('url');
@@ -19,34 +18,27 @@ const bill_id = qiwiRestApi.generateId();
 
 /* const bill_id = crypto.randomBytes(5).toString('hex'); */
 
-
-
 const fields = {
-    amount: 1.00,
+    amount: 1.0,
     ccy: 'RUB',
     comment: 'test',
-    lifetime: '2018-07-25T09:00:00',
+    lifetime: qiwiRestApi.getLifetimeByDay(1),
     user: 'tel:+79086666695'
 };
 
-describe('qiwi api v2', function () {
-
-    this.timeout(6000);
-
+describe('qiwi api v2', () => {
     try {
         it('create bill', async () => {
             try {
                 const data = await qiwiRestApi.createBill(bill_id, fields);
 
                 assert.equal('0', data.response.result_code);
-                
             } catch (e) {
                 throw e;
             }
         });
 
         it('get redirect url', () => {
-
             let options = {
                 transaction: bill_id,
                 iframe: true,
@@ -61,13 +53,11 @@ describe('qiwi api v2', function () {
                 shop: prv_id,
                 ...options
             };
-            
+
             const query = new URLSearchParams(options);
 
             const testLink = `https://bill.qiwi.com/order/external/main.action?${query.toString()}`;
 
-            
-            
             assert.equal(testLink, link);
         });
 
@@ -76,25 +66,20 @@ describe('qiwi api v2', function () {
                 const data = await qiwiRestApi.getStatus(bill_id);
 
                 assert.equal('0', data.response.result_code);
-
             } catch (e) {
                 throw e;
             }
-
         });
 
-        /* it('cancels bill', async () => {
+        it('cancels bill', async () => {
             try {
                 const data = await qiwiRestApi.cancel(bill_id);
 
                 assert.equal('0', data.response.result_code);
-
             } catch (e) {
                 throw e;
             }
-
         });
-         */
     } catch (e) {
         console.error(e);
     }
