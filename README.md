@@ -24,7 +24,7 @@ const QiwiPullAPI = require('pull-rest-api-node-js-sdk');
 
 ## Авторизация
 
-Для использования SDK требуется: `prv_id` - ID проекта, `api_id` - идентификатор для авторизации провайдера в API, `api_password` - пароль для авторизации в API, подробности в [документации](https://developer.qiwi.com/ru/pull-payments/index.html?http#auth_param).
+Для использования SDK требуется: `prv_id` - ID проекта, `api_id` - идентификатор для авторизации провайдера в API, `api_password` - пароль для авторизации в API, подробнее в [документации](https://developer.qiwi.com/ru/pull-payments/index.html?http#auth_param).
 
 ```javascript
 const prv_id = 5814662325;
@@ -50,7 +50,7 @@ qiwiRestApi.apiId = api_id;
 
 ### Выставление счета
 
-Метод `createBill` выставляет новый счет на указанный номер телефона `fields.user`. В параметрах нужно указать: идентификатор счета `bill_id` внутри вашей системы и дополнительными параметрами `fields`. В результате будет получена ответ с данными о выставленном счете Подробнее о доступных параметрах в [документации](https://developer.qiwi.com/ru/pull-payments/index.html?http#invoice_rest).
+Метод `createBill` выставляет новый счет на указанный номер телефона `fields.user`. В параметрах нужно указать: идентификатор счета `bill_id` внутри вашей системы и дополнительными параметрами `fields`. В результате будет получена ответ с данными о выставленном счете. Подробнее о доступных параметрах в [документации](https://developer.qiwi.com/ru/pull-payments/index.html?http#invoice_rest).
 
 ```javascript
 const bill_id = '893794793973';
