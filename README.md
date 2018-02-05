@@ -1,4 +1,7 @@
 # QIWI Wallet Pull API Node.js SDK
+
+[![Build Status](https://travis-ci.org/secondtonone/pull-rest-api-node-js-sdk.svg?branch=master)](https://travis-ci.org/secondtonone/pull-rest-api-node-js-sdk)
+
 Node.js SDK для внедрения прием платежей с баланса QIWI Кошелька путем выставления счета.
 
 ## Установка и подключение
