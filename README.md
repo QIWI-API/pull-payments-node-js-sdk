@@ -234,19 +234,25 @@ qiwiApi.getRefundStatus(bill_id, refund_id).then( data => {
 
 ### Вспомогательные методы
 
-* Для генерирования `bill_id`, `refund_id` можно использовать метод `generateId`. Метод возвращает строку в формате UUID v4:
+* Метод `generateId` возвращает строку в формате UUID v4, удобно для генерирования `bill_id`, `refund_id`:
 
     ```javascript
     const bill_id = qiwiApi.generateId();
     //e9b47ee9-b2f9-4b45-9438-52370670e2a6
     ```
 
-* Для генерирования даты до которой счет будет доступен для оплаты `lifetime` можно использовать метод `getLifetimeByDay`. Входной параметр - сколько дней счет будет доступен, если не указанно, то по умолчанию 45 дней. Метод возвращает строку в формате ISO 8601:
+* Метод `getLifetimeByDay` генерирует дату до которой счет будет доступен для оплаты - `lifetime`. Входной параметр - сколько дней счет будет доступен, если не указанно, то по умолчанию 45 дней. Метод возвращает строку в формате ISO 8601:
 
     ```javascript
     //now: 2018-02-04T17:16:58.033Z
-    const bill_id = qiwiApi.getLifetimeByDay(1);
+    const lifetime = qiwiApi.getLifetimeByDay(1);
     //2018-02-05T17:16:58.033Z
+    ```
+
+    ```javascript
+    //now: 2018-02-04T17:16:58.033Z
+    const lifetime = qiwiApi.getLifetimeByDay(0.5);
+    //2018-02-05T05:16:58.033Z
     ```
 
 ## Тестирование
