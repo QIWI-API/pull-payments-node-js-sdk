@@ -24,7 +24,7 @@ const QiwiPullAPI = require('pull-rest-api-node-js-sdk');
 
 ## Авторизация
 
-Для использования SDK требуется: `prv_id` - ID проекта, `api_id` - идентификатор для авторизации провайдера в API, `api_password` - пароль для авторизации в API, подробности в [документации](https://developer.qiwi.com/ru/pull-payments/index.html?http#auth_param).
+Для использования SDK требуется: `prv_id` - ID проекта, `api_id` - идентификатор для авторизации провайдера в API, `api_password` - пароль для авторизации в API, подробнее в [документации](https://developer.qiwi.com/ru/pull-payments/index.html?http#auth_param).
 
 ```javascript
 const prv_id = 5814662325;
@@ -50,7 +50,7 @@ qiwiRestApi.apiId = api_id;
 
 ### Выставление счета
 
-Метод `createBill` выставляет новый счет на указанный номер телефона `fields.user`. В параметрах нужно указать: идентификатор счета `bill_id` внутри вашей системы и дополнительными параметрами `fields`. В результате будет получена ответ с данными о выставленном счете Подробнее о доступных параметрах в [документации](https://developer.qiwi.com/ru/pull-payments/index.html?http#invoice_rest).
+Метод `createBill` выставляет новый счет на указанный номер телефона `fields.user`. В параметрах нужно указать: идентификатор счета `bill_id` внутри вашей системы и дополнительными параметрами `fields`. В результате будет получена ответ с данными о выставленном счете. Подробнее о доступных параметрах в [документации](https://developer.qiwi.com/ru/pull-payments/index.html?http#invoice_rest).
 
 ```javascript
 const bill_id = '893794793973';
@@ -234,19 +234,25 @@ qiwiApi.getRefundStatus(bill_id, refund_id).then( data => {
 
 ### Вспомогательные методы
 
-* Для генерирования `bill_id`, `refund_id` можно использовать метод `generateId`. Метод возвращает строку в формате UUID v4:
+* Метод `generateId` возвращает строку в формате UUID v4, удобно для генерирования `bill_id`, `refund_id`:
 
     ```javascript
     const bill_id = qiwiApi.generateId();
     //e9b47ee9-b2f9-4b45-9438-52370670e2a6
     ```
 
-* Для генерирования даты до которой счет будет доступен для оплаты `lifetime` можно использовать метод `getLifetimeByDay`. Входной параметр - сколько дней счет будет доступен, если не указанно, то по умолчанию 45 дней. Метод возвращает строку в формате ISO 8601:
+* Метод `getLifetimeByDay` генерирует дату до которой счет будет доступен для оплаты - `lifetime`. Входной параметр - сколько дней счет будет доступен, если не указанно, то по умолчанию 45 дней. Метод возвращает строку в формате ISO 8601:
 
     ```javascript
     //now: 2018-02-04T17:16:58.033Z
-    const bill_id = qiwiApi.getLifetimeByDay(1);
+    const lifetime = qiwiApi.getLifetimeByDay(1);
     //2018-02-05T17:16:58.033Z
+    ```
+
+    ```javascript
+    //now: 2018-02-04T17:16:58.033Z
+    const lifetime = qiwiApi.getLifetimeByDay(0.5);
+    //2018-02-05T05:16:58.033Z
     ```
 
 ## Тестирование
