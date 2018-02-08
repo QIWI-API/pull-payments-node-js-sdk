@@ -1,6 +1,7 @@
 # QIWI Wallet Pull API Node.js SDK
 
 [![Build Status](https://travis-ci.org/secondtonone/pull-rest-api-node-js-sdk.svg?branch=master)](https://travis-ci.org/secondtonone/pull-rest-api-node-js-sdk)
+[![npm (scoped)](https://img.shields.io/npm/v/@qiwi/pull-rest-api-node-js-sdk.svg)](https://www.npmjs.com/package/@qiwi/pull-rest-api-node-js-sdk)
 
 Node.js SDK для внедрения прием платежей с баланса QIWI Кошелька путем выставления счета.
 
@@ -9,13 +10,13 @@ Node.js SDK для внедрения прием платежей с балан�
 Установка с помощью npm:
 
 ```bash
-$ npm install git +https://github.com/QIWI-API/pull-payments-node-js-sdk.git --save
+$ npm install @qiwi/pull-rest-api-node-js-sdk --save
 ```
 
 Подключение:
 
 ```javascript
-const QiwiPullAPI = require('pull-rest-api-node-js-sdk');
+const QiwiPullAPI = require('@qiwi/pull-rest-api-node-js-sdk');
 ```
 
 ## Документация
@@ -241,7 +242,7 @@ qiwiApi.getRefundStatus(bill_id, refund_id).then( data => {
     //e9b47ee9-b2f9-4b45-9438-52370670e2a6
     ```
 
-* Метод `getLifetimeByDay` генерирует дату до которой счет будет доступен для оплаты - `lifetime`. Входной параметр - сколько дней счет будет доступен, если не указанно, то по умолчанию 45 дней. Метод возвращает строку в формате ISO 8601:
+* Метод `getLifetimeByDay` генерирует дату до которой счет будет доступен для оплаты - `lifetime`. Входной параметр - сколько дней счет будет доступен, если не указанно, то по умолчанию 45 дней. Метод возвращает строку в формате ISO 8601 UTC+3:00:
 
     ```javascript
     //now: 2018-02-04T17:16:58.033Z
