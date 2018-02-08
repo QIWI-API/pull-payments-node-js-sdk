@@ -1,25 +1,37 @@
 {
-    "name": "pull-rest-api-node-js-sdk",
-    "version": "2.0.0",
-    "description": "",
-    "main": "lib/QiwiPullAPI.js",
-    "scripts": {
-        "test": "mocha --harmony test/QiwiPullAPI.spec.js",
-        "lint": "./node_modules/.bin/eslint lib/QiwiPullAPI.js lib/request.js"
-    },
-    "author": "",
-    "license": "MIT",
-    "devDependencies": {
-        "chai": "^4.0.2",
-        "eslint": "^4.15.0",
-        "eslint-config-standard": "^11.0.0-beta.0",
-        "eslint-plugin-import": "^2.8.0",
-        "eslint-plugin-node": "^5.2.1",
-        "eslint-plugin-promise": "^3.6.0",
-        "eslint-plugin-standard": "^3.0.1",
-        "mocha": "^3.4.2"
-    },
-    "dependencies": {
-        "uuid": "^3.2.1"
-    }
+  "name": "@qiwi/pull-rest-api-node-js-sdk",
+  "version": "2.2.2",
+  "description": "QIWI Wallet Pull API SDK",
+  "homepage": "https://github.com/QIWI-API/pull-payments-node-js-sdk",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QIWI-API/pull-payments-node-js-sdk.git"
+  },
+  "main": "lib/QiwiPullAPI.js",
+  "scripts": {
+    "test": "mocha --harmony test/QiwiPullAPI.spec.js",
+    "lint": "eslint lib/QiwiPullAPI.js lib/request.js"
+  },
+  "author": "Maxim Kuznetsov <secondtonone.secondtonone@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "eslint": "^4.15.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "mocha": "^3.4.2"
+  },
+  "dependencies": {
+    "uuid": "^3.2.1"
+  },
+  "bugs": {
+    "url": "https://github.com/QIWI-API/pull-payments-node-js-sdk/issues"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  }
 }
